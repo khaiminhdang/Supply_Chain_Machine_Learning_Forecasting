@@ -60,25 +60,6 @@ Dự án đi qua các giai đoạn từ cơ bản đến nâng cao:
 
 *Lưu ý: kết quả thực tế thay đổi tùy thời điểm cắt train/test và random seed.*
 
-## 📁 Cấu trúc thư mục đề xuất
-Chain_Machine_Learning_Forecasting/
-├── data/
-│   ├── norway_new_car_sales_by_make.csv
-│   └── GDP.xlsx
-├── notebooks/
-│   └── 01-full-forecasting-benchmark.ipynb
-├── src/
-│   ├── data_prep.py
-│   ├── models.py
-│   └── metrics.py
-├── images/
-│   ├── Regression_Tree.PNG
-│   ├── feature_importance_xgboost.png
-│   └── seasonal_clusters_heatmap.png
-├── requirements.txt
-├── README.md
-└── .gitignore
-
 ## 🚀 Cách chạy
 
 1. Clone repository
