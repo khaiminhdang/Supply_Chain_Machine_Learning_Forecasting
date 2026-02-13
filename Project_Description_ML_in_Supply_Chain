@@ -2,59 +2,62 @@
 
 **Multi-model time series forecasting comparison** on monthly new passenger car registrations by make in Norway.
 
-<img src="https://img.shields.io/badge/Python-3.8%2B-blue"> <img src="https://img.shields.io/badge/scikit--learn-1.0+-orange"> <img src="https://img.shields.io/badge/XGBoost-1.7+-yellow"> <img src="https://img.shields.io/badge/Pandas-2.0+-green">
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2+-orange)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-1.7+-yellow)](https://xgboost.readthedocs.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-## 🎯 Objective
+## 🎯 Mục tiêu dự án
 
-Build, compare and progressively improve forecasting models to predict future monthly new car sales per brand using historical data (2007–present).
+Xây dựng, so sánh và cải tiến dần các mô hình dự báo doanh số xe hơi mới hàng tháng theo từng hãng tại Na Uy (dữ liệu từ 2007 đến nay).
 
-The project systematically moves from simple autoregressive approaches to advanced ensemble and neural methods, while exploring:
+Dự án đi qua các giai đoạn từ cơ bản đến nâng cao:
 
-- Sliding-window time-series preparation
-- Exogenous variables (GDP)
-- Categorical features (brand segment, one-hot encoding)
-- Seasonal pattern clustering
-- Feature selection / importance analysis
-- Multi-step forecasting
+- Chuẩn bị dữ liệu chuỗi thời gian (sliding window)
+- Sử dụng biến ngoại sinh (GDP)
+- Mã hóa biến phân loại (phân khúc hãng xe, one-hot encoding)
+- Phân cụm theo yếu tố mùa vụ
+- Phân tích tầm quan trọng đặc trưng (feature importance)
+- Dự báo đa bước (multi-step forecasting)
 
-## 📊 Dataset
+## 📊 Dữ liệu
 
-- **File**: `norway_new_car_sales_by_make.csv`
-- **Source**: originally from Kaggle → [New Car Sales in Norway](https://www.kaggle.com/datasets/dmi3kno/newcarsalesnorway) (also mirrored in many public repos)
-- **Structure**: wide format → rows = car makes, columns = YYYY-MM periods, values = registered new passenger cars
-- **Time range**: January 2007 → last available month
-- **Exogenous data**: yearly GDP (used as simple macro indicator)
+- **Tệp chính**: `norway_new_car_sales_by_make.csv`
+- **Nguồn gốc**: Dữ liệu công khai (Kaggle / các nguồn mở về đăng ký xe mới tại Na Uy)
+- **Cấu trúc**: Dạng wide → mỗi hàng là một hãng xe, mỗi cột là tháng (YYYY-MM), giá trị là số lượng xe đăng ký mới
+- **Khoảng thời gian**: Tháng 1/2007 → tháng gần nhất có dữ liệu
+- **Biến ngoại sinh**: GDP hàng năm (dùng làm chỉ báo kinh tế vĩ mô đơn giản)
 
-## 🛠 Models Implemented & Compared
+## 🛠 Các mô hình đã triển khai và so sánh
 
-| Stage | Model Family                  | Key Techniques / Variants                                 | Notes                                      |
-|------|-------------------------------|-------------------------------------------------------------------|--------------------------------------------|
-| 2.3  | Linear Regression             | AR(12) autoregressive                                             | Baseline                                   |
-| 2.4  | Decision Tree                 | max_depth=5, min_samples_split=15, criterion MSE vs MAE           | Tree visualisation                         |
-| 2.5  | Tuned Decision Tree           | RandomizedSearchCV (100 trials, 10-fold CV)                       | Hyperparameter tuning                      |
-| 2.6  | Random Forest                 | n_estimators=30 → 200, tuned with 400 trials                      | Feature importance plot                    |
-| 2.8  | Extra Trees (Extremely Randomized Trees) | n_estimators=200, tuned                                     | Higher randomness than RF                  |
-| 2.9  | Feature-length optimization   | Test x_len = 6..50 months with RF & ExtraTrees                    | Optimal lag length analysis                |
-| 2.10 | AdaBoost                      | DecisionTree base, tuned learning_rate & loss                     | Boosting approach                          |
-| 2.12 | XGBoost                       | Single-step & multi-step (MultiOutputRegressor), early stopping, tuning with 1000 trials | Strongest single model in most runs        |
-| 2.13 | Categorical encoding          | Integer encoding (segment) + one-hot (brand)                      | Brand-specific effects                     |
-| 2.14 | Seasonal clustering           | KMeans on normalised monthly seasonal factors                     | Group brands by seasonality pattern        |
-| 2.15 | Rich feature set + XGBoost    | Aggregated statistics + month + GDP + segment/one-hot + clustering | Feature importance driven selection        |
-| 2.16 | Neural Network (MLPRegressor) | Adam, early stopping, RandomizedSearchCV on architecture & reg   | Final deep learning baseline               |
+| Giai đoạn | Nhóm mô hình                        | Kỹ thuật / Biến thể chính                                      | Ghi chú nổi bật                          |
+|-----------|-------------------------------------|----------------------------------------------------------------|------------------------------------------|
+| 2.3       | Linear Regression                   | AR(12) – tự hồi quy                                            | Baseline đơn giản                        |
+| 2.4       | Decision Tree                       | max_depth=5, min_samples_split=15, so sánh MSE vs MAE          | Visualize cây quyết định                 |
+| 2.5       | Tuned Decision Tree                 | RandomizedSearchCV (100 trials, 10-fold CV)                    | Tối ưu siêu tham số                      |
+| 2.6       | Random Forest                       | n_estimators=30 → 200, tuning 400 trials                       | Feature importance bar chart             |
+| 2.8       | Extra Trees                         | n_estimators=200, tuning                                       | Ngẫu nhiên hơn Random Forest             |
+| 2.9       | Tối ưu số lượng lag                 | Thử x_len từ 6 đến 50 tháng với RF & ExtraTrees                | Tìm số tháng quá khứ tối ưu              |
+| 2.10      | AdaBoost                            | Base là DecisionTree, tuning learning_rate & loss              | Phương pháp boosting                     |
+| 2.12      | XGBoost                             | Single-step + multi-step, early stopping, tuning 1000 trials   | Mô hình mạnh nhất trong hầu hết trường hợp |
+| 2.13      | Mã hóa phân loại                    | Integer encoding (phân khúc) + one-hot encoding (hãng)         | Tác động riêng của từng hãng             |
+| 2.14      | Phân cụm mùa vụ                     | KMeans trên seasonal factors chuẩn hóa                         | Nhóm các hãng theo pattern mùa vụ        |
+| 2.15      | XGBoost + feature engineering giàu  | Thống kê tổng hợp + tháng + GDP + phân khúc + cụm              | Feature selection dựa trên importance    |
+| 2.16      | Neural Network (MLP)                | Adam, early stopping, RandomizedSearchCV trên kiến trúc       | Baseline deep learning                   |
 
-## 📈 Main Results (typical ranges from notebook runs)
+## 📈 Kết quả chính (khoảng điển hình)
 
-| Model                     | Test MAE% | Test RMSE% | Bias% | Training time | Comment                              |
-|---------------------------|-----------|------------|-------|---------------|--------------------------------------|
-| Linear Regression         | ~38–45%   | ~60–80%    | ~±5%  | <1s           | Surprisingly strong baseline         |
-| Decision Tree             | 32–42%    | 55–75%     | low   | ~0.5s         | Overfits easily                      |
-| Tuned Tree                | ~30–38%   | ~50–68%    | low   | ~2–5s         | Clear improvement                    |
-| Random Forest (200)       | 24–32%    | 42–58%     | ~0–3% | ~5–15s        | Very stable                          |
-| ExtraTrees (200)          | 23–31%    | 40–56%     | low   | ~4–12s        | Slightly better than RF in some runs |
-| XGBoost (tuned)           | **21–28%**| **36–50%** | ~0–2% | ~3–20s        | Best single-model performance        |
-| XGBoost + rich features   | **19–26%**| **33–47%** | low   | ~5–30s        | Best overall result in notebook      |
-| MLP (tuned)               | 27–38%    | 48–70%     | —     | ~10–120s      | Requires more tuning & data          |
+| Mô hình                        | Test MAE%   | Test RMSE%  | Bias%     | Thời gian train | Nhận xét                              |
+|--------------------------------|-------------|-------------|-----------|------------------|---------------------------------------|
+| Linear Regression              | 38–45%      | 60–80%      | ±5%       | <1s              | Baseline rất ổn                       |
+| Decision Tree                  | 32–42%      | 55–75%      | thấp      | ~0.5s            | Dễ overfit                            |
+| Tuned Tree                     | 30–38%      | 50–68%      | thấp      | 2–5s             | Cải thiện rõ                         |
+| Random Forest (200 trees)      | 24–32%      | 42–58%      | 0–3%      | 5–15s            | Rất ổn định                           |
+| ExtraTrees (200)               | 23–31%      | 40–56%      | thấp      | 4–12s            | Thỉnh thoảng vượt RF                  |
+| XGBoost (tuned)                | **21–28%**  | **36–50%**  | 0–2%      | 3–20s            | Hiệu suất đơn mô hình tốt nhất        |
+| XGBoost + rich features        | **19–26%**  | **33–47%**  | thấp      | 5–30s            | Kết quả tốt nhất trong notebook       |
+| Neural Network (tuned)         | 27–38%      | 48–70%      | —         | 10–120s          | Cần tuning & dữ liệu nhiều hơn        |
 
-*(exact numbers depend on train/test split date & random seed)*
+*Lưu ý: kết quả thực tế thay đổi tùy thời điểm cắt train/test và random seed.*
 
-## 📁 Repository Structure (suggested)
+## 📁 Cấu trúc thư mục đề xuất
