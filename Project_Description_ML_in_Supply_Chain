@@ -2,7 +2,7 @@
 
 **Multi-model time series forecasting comparison** on monthly new passenger car registrations by make in Norway.
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2+-orange)](https://scikit-learn.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-1.7+-yellow)](https://xgboost.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -30,20 +30,20 @@ Dự án đi qua các giai đoạn từ cơ bản đến nâng cao:
 
 ## 🛠 Các mô hình đã triển khai và so sánh
 
-| Giai đoạn | Nhóm mô hình                        | Kỹ thuật / Biến thể chính                                      | Ghi chú nổi bật                          |
-|-----------|-------------------------------------|----------------------------------------------------------------|------------------------------------------|
-| 2.3       | Linear Regression                   | AR(12) – tự hồi quy                                            | Baseline đơn giản                        |
-| 2.4       | Decision Tree                       | max_depth=5, min_samples_split=15, so sánh MSE vs MAE          | Visualize cây quyết định                 |
-| 2.5       | Tuned Decision Tree                 | RandomizedSearchCV (100 trials, 10-fold CV)                    | Tối ưu siêu tham số                      |
-| 2.6       | Random Forest                       | n_estimators=30 → 200, tuning 400 trials                       | Feature importance bar chart             |
-| 2.8       | Extra Trees                         | n_estimators=200, tuning                                       | Ngẫu nhiên hơn Random Forest             |
-| 2.9       | Tối ưu số lượng lag                 | Thử x_len từ 6 đến 50 tháng với RF & ExtraTrees                | Tìm số tháng quá khứ tối ưu              |
-| 2.10      | AdaBoost                            | Base là DecisionTree, tuning learning_rate & loss              | Phương pháp boosting                     |
-| 2.12      | XGBoost                             | Single-step + multi-step, early stopping, tuning 1000 trials   | Mô hình mạnh nhất trong hầu hết trường hợp |
-| 2.13      | Mã hóa phân loại                    | Integer encoding (phân khúc) + one-hot encoding (hãng)         | Tác động riêng của từng hãng             |
-| 2.14      | Phân cụm mùa vụ                     | KMeans trên seasonal factors chuẩn hóa                         | Nhóm các hãng theo pattern mùa vụ        |
-| 2.15      | XGBoost + feature engineering giàu  | Thống kê tổng hợp + tháng + GDP + phân khúc + cụm              | Feature selection dựa trên importance    |
-| 2.16      | Neural Network (MLP)                | Adam, early stopping, RandomizedSearchCV trên kiến trúc       | Baseline deep learning                   |
+| Giai đoạn | Nhóm mô hình                  | Kỹ thuật / Biến thể chính                                  | Ghi chú nổi bật                     |
+|-----------|-------------------------------|------------------------------------------------------------|-------------------------------------|
+| 2.3       | Linear Regression             | AR(12) – tự hồi quy                                        | Baseline đơn giản                   |
+| 2.4       | Decision Tree                 | max_depth=5, min_samples_split=15, so sánh MSE vs MAE      | Visualize cây quyết định            |
+| 2.5       | Tuned Decision Tree           | RandomizedSearchCV (100 trials, 10-fold CV)                | Tối ưu siêu tham số                 |
+| 2.6       | Random Forest                 | n_estimators=30 → 200, tuning 400 trials                   | Feature importance bar chart        |
+| 2.8       | Extra Trees                   | n_estimators=200, tuning                                   | Ngẫu nhiên hơn Random Forest        |
+| 2.9       | Tối ưu số lượng lag           | Thử x_len từ 6 đến 50 tháng với RF & ExtraTrees            | Tìm số tháng quá khứ tối ưu         |
+| 2.10      | AdaBoost                      | Base là DecisionTree, tuning learning_rate & loss          | Phương pháp boosting                |
+| 2.12      | XGBoost                       | Single-step + multi-step, early stopping, tuning 1000 trials | Mô hình mạnh nhất trong hầu hết trường hợp |
+| 2.13      | Mã hóa phân loại              | Integer encoding (phân khúc) + one-hot encoding (hãng)     | Tác động riêng của từng hãng        |
+| 2.14      | Phân cụm mùa vụ               | KMeans trên seasonal factors chuẩn hóa                     | Nhóm các hãng theo pattern mùa vụ   |
+| 2.15      | XGBoost + feature engineering | Thống kê tổng hợp + tháng + GDP + phân khúc + cụm          | Feature selection dựa trên importance |
+| 2.16      | Neural Network (MLP)          | Adam, early stopping, RandomizedSearchCV trên kiến trúc    | Baseline deep learning              |
 
 ## 📈 Kết quả chính (khoảng điển hình)
 
